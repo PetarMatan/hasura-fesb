@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import {useEffect, useState} from 'react';
+import {gql} from '@apollo/client'
 import './App.css';
 
 function App() {
+  const [users, setUsers] = useState([])
+
+  //Fetching users data
+  const fetchData = async() => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var graphql = JSON.stringify({
+      query: "query GetTestingTable {\n  testing_table {\n    id\n\t\tvalue\n  }\n}\n    ",
+      variables: {}
+    })
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: graphql,
+      redirect: 'follow'
+    };
+
+    const res = await fetch("http://localhost:8080/v1/graphql", requestOptions)
+    const usersData = await res.json();
+    setUsers(usersData.data.testing_table[0]);
+  }
+  useEffect(() => {
+    // Calling fetchData Method
+    fetchData()
+
+  }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {JSON.stringify(users)}
     </div>
   );
 }
