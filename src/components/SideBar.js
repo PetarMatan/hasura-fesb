@@ -1,6 +1,8 @@
-import { useState } from "react"
 import { gql, useQuery  } from "@apollo/client";
 import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Typography } from '@mui/material';
+
+const SIDE_BAR_STYLE = { width: '100%', height: '100%', maxWidth: 360, bgcolor: 'background.paper', boxSizing: 'border-box'};
+const SIDE_BAR_ITEM_STYLE = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' };
 
 const query = gql`
 query getConversations {
@@ -15,7 +17,6 @@ query getConversations {
       }
 }
 `
-
 export function SideBar(props) {
     const { data, loading, error } = useQuery(query);
 
@@ -32,17 +33,24 @@ export function SideBar(props) {
                     <ListItemAvatar>
                         <Avatar src={`https://i.pravatar.cc/300?u=${conversation?.chat_user.name}`} />
                     </ListItemAvatar>
-                    <ListItemText primary={conversation.chat_user.name} secondary={<Typography component='p' sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>This is a logn mesageeeeeeeeeeeee</Typography>} />
+                    <ListItemText 
+                        primary={conversation.chat_user.name} 
+                        secondary={
+                            <Typography
+                                component='p' 
+                                sx={SIDE_BAR_ITEM_STYLE}>
+                            </Typography>} 
+                    />
                 </ListItem>
             )
         }))
-    }
+    };
 
     return (
         <div className="SideBar">
-             <List sx={{ width: '100%', height: '100%', maxWidth: 360, bgcolor: 'background.paper', boxSizing: 'border-box'}}>
+             <List sx={SIDE_BAR_STYLE}>
                 {mapConversationsToList()}
              </List>
         </div>
-    )
+    );
 }
