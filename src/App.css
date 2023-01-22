@@ -1,38 +1,47 @@
 .App {
   text-align: center;
+  background-color: #518f7a;
+  padding: 50px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.ChatApp{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.SideBar {
+ height: 100%;
+ width: 20%;
+ border-right: 1px solid #ccc;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ChatModule {
+  background-color: wheat;
+  height: 100%;
+  width: 80%;
+}
+
+.ChatHeader {
+  display: flex;
+  padding-left: 25px;
+  background: white;
+  border: 1px solid #ccc;
+}
+
+.MessagesList {
+  height: 80%;
+  display: flex;
+}
+
+.MessageText {
+  border-radius: 10px;
+  padding: 2px 15px;
+}
+
+.MessageText--Left {
+  background: rgb(100 149 237 / 50%);
+}
+
+.MessageText--Right {
+  background: rgba(17, 241, 32, 0.5);
 }

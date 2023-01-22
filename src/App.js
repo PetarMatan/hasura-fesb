@@ -1,6 +1,8 @@
 import {ApolloProvider, InMemoryCache, ApolloClient} from '@apollo/client'
 import Testing from './Testing';
 import './App.css';
+import { SideBar } from './components/SideBar';
+import { Chat } from './components/Chat';
 
 
 
@@ -13,7 +15,11 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Testing />
+        <div className='ChatApp'>
+          <SideBar />
+          <Chat />
+          {/* <Testing /> */}
+        </div>
       </div>
     </ApolloProvider>
   );
