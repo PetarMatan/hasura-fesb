@@ -2,21 +2,30 @@ import { gql, useQuery} from '@apollo/client'
 import './App.css';
 
 const query = gql`
-query GetTestingTable {
-  testing_table {
+query getMessages($conversationId: Int!) {
+  message(where: {conversation_id: {_eq: $conversationId}}) {
+    content
     id
-    value
+    created_at
+    user_id
+    chat_user {
+      name
+      id
+      number
+    }
   }
 }
 `
 
 function Testing() {
-  
-    const { data, loading, error } = useQuery(query);
+    const { data, loading, error } = useQuery(query, {
+      variables: { 'conversationId': 3 }
+    });
   
   return (
       <div className="App">
-        {JSON.stringify(data?.testing_table)}
+        {data?.data}
+        {data?.message.map(msg => <div key={msg.id}>{msg.content}</div>)}
       </div>
   );
 }
