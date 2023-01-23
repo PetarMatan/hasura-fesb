@@ -3,26 +3,7 @@ import { gql, useQuery, useSubscription} from '@apollo/client';
 
 const CHAT_STYLE = { flexGrow: 1, overflow: 'auto', bgcolor: 'background.paper'};
 
-const query = gql`
-subscription getMessages($conversationId: Int!) {
-  message(where: {conversation_id: {_eq: $conversationId}}) {
-    content
-    id
-    created_at
-    user_id
-    chat_user {
-      name
-      id
-      number
-    }
-  }
-}
-`
-
 export function Chat({selectedConversation, loggedInUser}) {
-    const { data, loading, error } = useSubscription(query, {
-        variables: { 'conversationId': selectedConversation?.id }
-      });
 
     const mapMessages = () => {
         if(!data) {
